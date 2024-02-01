@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"fmt"
 	"log"
+	"math/rand"
 	"net/http"
 	"os"
 	"os/signal"
@@ -93,6 +94,12 @@ func ready(s *discordgo.Session, event *discordgo.Ready) {
 func messageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 	if m.Author.Bot {
 		return
+	}
+
+	rando := rand.Intn(3-1) + 1
+
+	if (m.Author.ID == "1109446351630123161") && rando <= 1 {
+		s.MessageReactionAdd(m.ChannelID, m.ID, "🤓")
 	}
 
 	tokens := strings.Split(m.Content, " ")
